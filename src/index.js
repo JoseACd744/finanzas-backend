@@ -4,6 +4,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const sequelize = require('./config/database');
 const userRoutes = require('./routes/userRoutes');
+const letraRoutes = require('./routes/letraRoutes');
 const { swaggerUi, specs } = require('./config/swagger');
 
 const app = express();
@@ -11,6 +12,7 @@ const PORT = process.env.PORT || 3000;
 
 app.use(bodyParser.json());
 app.use('/api/users', userRoutes);
+app.use('/api/letras', letraRoutes);
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(specs));
 
 sequelize.sync().then(() => {
