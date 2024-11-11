@@ -1,8 +1,14 @@
 // src/models/letraModel.js
 const { DataTypes } = require('sequelize');
 const sequelize = require('../config/database');
+const User = require('./userModel');
 
 const Letra = sequelize.define('Letra', {
+    id: {
+        type: DataTypes.INTEGER,
+        autoIncrement: true,
+        primaryKey: true
+    },
     numero: {
         type: DataTypes.STRING,
         allowNull: false,
@@ -88,6 +94,14 @@ const Letra = sequelize.define('Letra', {
     TCEAm: {
         type: DataTypes.FLOAT,
         allowNull: true
+    },
+    userId: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        references: {
+            model: 'Users',
+            key: 'id'
+        }
     }
 });
 

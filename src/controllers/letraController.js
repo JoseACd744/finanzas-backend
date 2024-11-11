@@ -3,7 +3,7 @@ const Letra = require('../models/letraModel');
 const moment = require('moment');
 
 const createLetra = async (req, res) => {
-    const { numero, nombreCliente, monto, tasaInteresEfectiva, seguroDesgravame, fechaDescuento, fechaVencimiento, comisionEstudio = 0, comisionActivacion = 0, comisionOtro = 0, retencion = 0, gastosAdministrativos = 0, portes = 0 } = req.body;
+    const { numero, nombreCliente, monto, tasaInteresEfectiva, seguroDesgravame, fechaDescuento, fechaVencimiento, comisionEstudio = 0, comisionActivacion = 0, comisionOtro = 0, retencion = 0, gastosAdministrativos = 0, portes = 0, userId } = req.body;
 
     try {
         const fechaInicio = new Date();
@@ -44,7 +44,8 @@ const createLetra = async (req, res) => {
             valorNeto,
             valorRecibido,
             valorEntregado,
-            TCEA
+            TCEA,
+            userId
         });
 
         res.status(201).json(newLetra);
@@ -81,7 +82,7 @@ const updateLetra = async (req, res) => {
             return res.status(404).json({ message: 'Letra no encontrada' });
         }
 
-        const { numero, nombreCliente, monto, tasaInteresEfectiva, seguroDesgravame, fechaDescuento, fechaVencimiento, comisionEstudio = 0, comisionActivacion = 0, comisionOtro = 0, retencion = 0, gastosAdministrativos = 0, portes = 0 } = req.body;
+        const { numero, nombreCliente, monto, tasaInteresEfectiva, seguroDesgravame, fechaDescuento, fechaVencimiento, comisionEstudio = 0, comisionActivacion = 0, comisionOtro = 0, retencion = 0, gastosAdministrativos = 0, portes = 0, userId } = req.body;
         const fechaInicio = letra.fechaInicio;
         let diasDescontados = moment(fechaDescuento).diff(moment(fechaInicio), 'days');
         if (diasDescontados === 0) {
@@ -119,6 +120,7 @@ const updateLetra = async (req, res) => {
         letra.valorRecibido = valorRecibido;
         letra.valorEntregado = valorEntregado;
         letra.TCEA = TCEA;
+        letra.userId = userId;
 
         await letra.save();
         res.json(letra);

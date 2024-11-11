@@ -15,7 +15,7 @@ app.use('/api/users', userRoutes);
 app.use('/api/letras', letraRoutes);
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(specs));
 
-sequelize.sync().then(() => {
+sequelize.sync({ force: false }).then(() => {
     app.listen(PORT, () => {
         console.log(`Server is running on port ${PORT}`);
         console.log('Connected to MySQL');

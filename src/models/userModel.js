@@ -1,6 +1,7 @@
 // src/models/userModel.js
 const { DataTypes } = require('sequelize');
 const sequelize = require('../config/database');
+const Letra = require('./letraModel');
 
 const User = sequelize.define('User', {
     id: {
@@ -27,5 +28,8 @@ const User = sequelize.define('User', {
         allowNull: false
     }
 });
+
+User.hasMany(Letra, { foreignKey: 'userId' });
+Letra.belongsTo(User, { foreignKey: 'userId' });
 
 module.exports = User;

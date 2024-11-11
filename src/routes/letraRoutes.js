@@ -49,6 +49,9 @@ const router = express.Router();
  *                 type: number
  *               portes:
  *                 type: number
+ *               userId:
+ *                 type: number
+ *                 description: "ID del usuario propietario de la letra"
  *     responses:
  *       201:
  *         description: Letra creada exitosamente
@@ -143,6 +146,9 @@ router.get('/:id', verifyToken, getLetraById);
  *                 type: number
  *               portes:
  *                 type: number
+ *               userId:
+ *                 type: number
+ *                 description: "ID del usuario propietario de la letra"
  *     responses:
  *       200:
  *         description: Letra actualizada exitosamente
