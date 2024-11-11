@@ -12,7 +12,7 @@ const createLetra = async (req, res) => {
             diasDescontados = moment(fechaVencimiento).diff(moment(fechaInicio), 'days');
         }
         const TEA = tasaInteresEfectiva;
-        const TEP = (Math.pow(1 + TEA, diasDescontados / 360) - 1) * 100;
+        const TEP = (Math.pow(1 + TEA, diasDescontados / 360) - 1);
         const valorNominal = monto;
         const tasaDescontada = TEP / (1 + TEP / 100);
         const descuento = valorNominal * tasaDescontada / 100;
@@ -24,7 +24,7 @@ const createLetra = async (req, res) => {
         const costosFinales = gastosAdministrativos + portes;
         const valorEntregado = valorNominal + costosFinales - (retencion * valorNominal);
         const diasTotales = moment(fechaVencimiento).diff(moment(fechaInicio), 'days');
-        const TCEA = (Math.pow(valorEntregado / valorRecibido, 360 / diasTotales) - 1) * 100;
+        const TCEA = (Math.pow(valorEntregado / valorRecibido, 360 / diasTotales) - 1);
 
         const newLetra = await Letra.create({
             numero,
