@@ -61,6 +61,7 @@ const deleteUser = async (req, res) => {
     }
 };
 
+
 const loginUser = async (req, res) => {
     const { username, password } = req.body;
 
@@ -75,7 +76,7 @@ const loginUser = async (req, res) => {
             return res.status(400).json({ message: 'Contraseña incorrecta' });
         }
 
-        const token = jwt.sign({ id: user.id }, 'secretKey', { expiresIn: '1h' });
+        const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET, { expiresIn: '1h' });
         res.json({ token, userId: user.id });
     } catch (error) {
         res.status(400).json({ message: error.message });
