@@ -4,7 +4,25 @@ const { createLetra, getLetras, getLetraById, updateLetra, deleteLetra, getLetra
 const verifyToken = require('../middlewares/authMiddleware');
 
 const router = express.Router();
-
+/**
+ * @swagger
+ * /api/letras/count:
+ *   get:
+ *     summary: Contar letras
+ *     tags: [Letras]
+ *     parameters:
+ *       - in: query
+ *         name: userId
+ *         schema:
+ *           type: integer
+ *         description: ID del usuario propietario de las letras
+ *     responses:
+ *       200:
+ *         description: Cantidad de letras obtenida exitosamente
+ *       400:
+ *         description: Error al obtener la cantidad de letras
+ */
+router.get('/count', getLetraCount); // Define esta ruta antes de la ruta con parámetro :id
 /**
  * @swagger
  * /api/letras:
@@ -178,24 +196,6 @@ router.put('/:id', verifyToken, updateLetra);
  */
 router.delete('/:id', verifyToken, deleteLetra);
 
-/**
- * @swagger
- * /api/letras/count:
- *   get:
- *     summary: Contar letras
- *     tags: [Letras]
- *     parameters:
- *       - in: query
- *         name: userId
- *         schema:
- *           type: integer
- *         description: ID del usuario propietario de las letras
- *     responses:
- *       200:
- *         description: Cantidad de letras obtenida exitosamente
- *       400:
- *         description: Error al obtener la cantidad de letras
- */
-router.get('/count', getLetraCount); // Nueva ruta para contar letras
+
 
 module.exports = router;

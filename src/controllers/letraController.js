@@ -158,4 +158,5 @@ const getLetraCount = async (req, res) => {
     }
 };
 
+
 module.exports = { createLetra, getLetras, getLetraById, updateLetra, deleteLetra, getLetraCount };
