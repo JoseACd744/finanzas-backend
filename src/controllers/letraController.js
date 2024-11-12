@@ -55,8 +55,11 @@ const createLetra = async (req, res) => {
 };
 
 const getLetras = async (req, res) => {
+    const { userId } = req.query; // Obtener el userId de los parámetros de consulta
+
     try {
-        const letras = await Letra.findAll();
+        const query = userId ? { where: { userId } } : {};
+        const letras = await Letra.findAll(query);
         res.json(letras);
     } catch (error) {
         res.status(400).json({ message: error.message });

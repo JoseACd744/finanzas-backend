@@ -2,6 +2,7 @@
 require('dotenv').config();
 const express = require('express');
 const bodyParser = require('body-parser');
+const cors = require('cors'); // Requiere el paquete cors
 const sequelize = require('./config/database');
 const userRoutes = require('./routes/userRoutes');
 const letraRoutes = require('./routes/letraRoutes');
@@ -10,6 +11,7 @@ const { swaggerUi, specs } = require('./config/swagger');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+app.use(cors()); // Usa cors como middleware
 app.use(bodyParser.json());
 app.use('/api/users', userRoutes);
 app.use('/api/letras', letraRoutes);

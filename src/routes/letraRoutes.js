@@ -72,7 +72,7 @@ router.post('/', verifyToken, createLetra);
  *       400:
  *         description: Error al obtener las letras
  */
-router.get('/', verifyToken, getLetras);
+router.get('/', getLetras);
 
 /**
  * @swagger
@@ -93,7 +93,7 @@ router.get('/', verifyToken, getLetras);
  *       404:
  *         description: Letra no encontrada
  */
-router.get('/:id', verifyToken, getLetraById);
+router.get('/:id', getLetraById);
 
 /**
  * @swagger
