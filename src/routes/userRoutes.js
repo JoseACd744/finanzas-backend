@@ -89,7 +89,7 @@ router.post('/', createUser);
  *       404:
  *         description: Usuario no encontrado
  */
-router.get('/:id', verifyToken, getUser);
+router.get('/:id', getUser);
 
 /**
  * @swagger
@@ -127,7 +127,7 @@ router.get('/:id', verifyToken, getUser);
  *       404:
  *         description: Usuario no encontrado
  */
-router.put('/:id', verifyToken, updateUser);
+router.put('/:id', updateUser);
 
 /**
  * @swagger
@@ -150,6 +150,6 @@ router.put('/:id', verifyToken, updateUser);
  *       404:
  *         description: Usuario no encontrado
  */
-router.delete('/:id', verifyToken, deleteUser);
+router.delete('/:id', deleteUser);
 
 module.exports = router;
