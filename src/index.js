@@ -2,19 +2,21 @@
 require('dotenv').config();
 const express = require('express');
 const bodyParser = require('body-parser');
-const cors = require('cors'); // Requiere el paquete cors
+const cors = require('cors');
 const sequelize = require('./config/database');
 const userRoutes = require('./routes/userRoutes');
 const letraRoutes = require('./routes/letraRoutes');
+const authRoutes = require('./routes/authRoutes'); // Importa las rutas de autenticación
 const { swaggerUi, specs } = require('./config/swagger');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-app.use(cors()); // Usa cors como middleware
+app.use(cors());
 app.use(bodyParser.json());
 app.use('/api/users', userRoutes);
 app.use('/api/letras', letraRoutes);
+app.use('/api/auth', authRoutes); // Usa las rutas de autenticación
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(specs));
 
 sequelize.sync({ force: false }).then(() => {

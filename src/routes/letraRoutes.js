@@ -1,6 +1,6 @@
 // src/routes/letraRoutes.js
 const express = require('express');
-const { createLetra, getLetras, getLetraById, updateLetra, deleteLetra } = require('../controllers/letraController');
+const { createLetra, getLetras, getLetraById, updateLetra, deleteLetra, getLetraCount } = require('../controllers/letraController');
 const verifyToken = require('../middlewares/authMiddleware');
 
 const router = express.Router();
@@ -72,7 +72,7 @@ router.post('/', verifyToken, createLetra);
  *       400:
  *         description: Error al obtener las letras
  */
-router.get('/', getLetras);
+router.get('/', verifyToken, getLetras);
 
 /**
  * @swagger
@@ -93,7 +93,7 @@ router.get('/', getLetras);
  *       404:
  *         description: Letra no encontrada
  */
-router.get('/:id', getLetraById);
+router.get('/:id', verifyToken, getLetraById);
 
 /**
  * @swagger
@@ -177,5 +177,25 @@ router.put('/:id', verifyToken, updateLetra);
  *         description: Letra no encontrada
  */
 router.delete('/:id', verifyToken, deleteLetra);
+
+/**
+ * @swagger
+ * /api/letras/count:
+ *   get:
+ *     summary: Contar letras
+ *     tags: [Letras]
+ *     parameters:
+ *       - in: query
+ *         name: userId
+ *         schema:
+ *           type: integer
+ *         description: ID del usuario propietario de las letras
+ *     responses:
+ *       200:
+ *         description: Cantidad de letras obtenida exitosamente
+ *       400:
+ *         description: Error al obtener la cantidad de letras
+ */
+router.get('/count', getLetraCount); // Nueva ruta para contar letras
 
 module.exports = router;

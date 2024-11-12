@@ -146,4 +146,16 @@ const deleteLetra = async (req, res) => {
     }
 };
 
-module.exports = { createLetra, getLetras, getLetraById, updateLetra, deleteLetra };
+const getLetraCount = async (req, res) => {
+    const { userId } = req.query;
+
+    try {
+        const query = userId ? { where: { userId } } : {};
+        const count = await Letra.count(query);
+        res.json(count);
+    } catch (error) {
+        res.status(400).json({ message: error.message });
+    }
+};
+
+module.exports = { createLetra, getLetras, getLetraById, updateLetra, deleteLetra, getLetraCount };
