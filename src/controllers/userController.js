@@ -8,6 +8,19 @@ const createUser = async (req, res) => {
     const hashedPassword = bcrypt.hashSync(password, 8);
 
     try {
+        // Verificar si el nombre de usuario ya existe
+        const existingUserByUsername = await User.findOne({ where: { username } });
+        if (existingUserByUsername) {
+            return res.status(400).json({ message: 'El nombre de usuario ya está en uso' });
+        }
+
+        // Verificar si el correo electrónico ya existe
+        const existingUserByEmail = await User.findOne({ where: { email } });
+        if (existingUserByEmail) {
+            return res.status(400).json({ message: 'El correo electrónico ya está en uso' });
+        }
+
+        // Crear el nuevo usuario
         const newUser = await User.create({ name, username, email, password: hashedPassword });
         res.status(201).json(newUser);
     } catch (error) {
@@ -35,9 +48,26 @@ const updateUser = async (req, res) => {
         }
 
         const { name, username, email, password } = req.body;
+
+        // Verificar si el nombre de usuario ya existe y no pertenece al usuario actual
+        if (username) {
+            const existingUserByUsername = await User.findOne({ where: { username } });
+            if (existingUserByUsername && existingUserByUsername.id !== user.id) {
+                return res.status(400).json({ message: 'El nombre de usuario ya está en uso' });
+            }
+            user.username = username;
+        }
+
+        // Verificar si el correo electrónico ya existe y no pertenece al usuario actual
+        if (email) {
+            const existingUserByEmail = await User.findOne({ where: { email } });
+            if (existingUserByEmail && existingUserByEmail.id !== user.id) {
+                return res.status(400).json({ message: 'El correo electrónico ya está en uso' });
+            }
+            user.email = email;
+        }
+
         if (name) user.name = name;
-        if (username) user.username = username;
-        if (email) user.email = email;
         if (password) user.password = bcrypt.hashSync(password, 8);
 
         await user.save();
