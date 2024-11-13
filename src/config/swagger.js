@@ -1,4 +1,3 @@
-// src/config/swagger.js
 const swaggerJsdoc = require('swagger-jsdoc');
 const swaggerUi = require('swagger-ui-express');
 
@@ -12,8 +11,8 @@ const options = {
         },
         servers: [
             {
-                url: 'http://localhost:3000',
-                description: 'Servidor de desarrollo'
+                url: 'https://finanzastf-h0hgfnerg9eca4ba.westus3-01.azurewebsites.net/',
+                description: 'Servidor de producción'
             }
         ],
         components: {

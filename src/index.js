@@ -10,19 +10,24 @@ const authRoutes = require('./routes/authRoutes'); // Importa las rutas de auten
 const { swaggerUi, specs } = require('./config/swagger');
 const downloadLogRoutes = require('./routes/downloadLogRoutes');
 
-
 const app = express();
 const PORT = process.env.PORT || 8080;
 
-app.use(cors());
+// Configuración de CORS para aceptar cualquier origen
+const corsOptions = {
+    origin: '*',
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+    credentials: true,
+    optionsSuccessStatus: 204
+};
+
+app.use(cors(corsOptions));
 app.use(bodyParser.json());
 app.use('/api/users', userRoutes);
 app.use('/api/letras', letraRoutes);
 app.use('/api/auth', authRoutes); // Usa las rutas de autenticación
 app.use('/api/download-log', downloadLogRoutes);
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(specs));
-// src/index.js
-
 
 sequelize.sync({ force: false }).then(() => {
     app.listen(PORT, () => {
