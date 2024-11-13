@@ -13,9 +13,9 @@ const downloadLogRoutes = require('./routes/downloadLogRoutes');
 const app = express();
 const PORT = process.env.PORT || 8080;
 
-// Configuración de CORS para aceptar cualquier origen
+// Configuración de CORS para aceptar cualquier origen y localhost:4200
 const corsOptions = {
-    origin: '*',
+    origin: ['*', 'http://localhost:4200'],
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
     credentials: true,
     optionsSuccessStatus: 204
