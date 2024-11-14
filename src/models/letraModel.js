@@ -1,3 +1,4 @@
+// src/models/letraModel.js
 const { DataTypes } = require('sequelize');
 const sequelize = require('../config/database');
 
@@ -7,6 +8,10 @@ const Letra = sequelize.define('Letra', {
         allowNull: false
     },
     nombreCliente: {
+        type: DataTypes.STRING,
+        allowNull: false
+    },
+    nombreEntidad: {
         type: DataTypes.STRING,
         allowNull: false
     },
@@ -76,10 +81,6 @@ const Letra = sequelize.define('Letra', {
     },
     userId: {
         type: DataTypes.INTEGER,
-        allowNull: false
-    },
-    nombreEntidad: {
-        type: DataTypes.STRING,
         allowNull: false
     }
 });
