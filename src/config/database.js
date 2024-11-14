@@ -1,4 +1,3 @@
-// src/config/database.js
 require('dotenv').config();
 const { Sequelize } = require('sequelize');
 
@@ -12,5 +11,14 @@ const sequelize = new Sequelize(process.env.DB_NAME, process.env.DB_USER, proces
         }
     }
 });
+
+// Sincronizar la base de datos
+// sequelize.sync({ force: true })
+//     .then(() => {
+//         console.log('Base de datos eliminada y recreada con éxito.');
+//     })
+//     .catch(error => {
+//         console.error('Error al sincronizar la base de datos:', error);
+//     });
 
 module.exports = sequelize;
