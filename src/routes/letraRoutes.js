@@ -40,6 +40,8 @@ router.get('/count', getLetraCount); // Define esta ruta antes de la ruta con pa
  *                 type: string
  *               nombreCliente:
  *                 type: string
+ *               nombreEntidad:
+ *                 type: string
  *               monto:
  *                 type: number
  *               tasaInteresEfectiva:
@@ -52,6 +54,9 @@ router.get('/count', getLetraCount); // Define esta ruta antes de la ruta con pa
  *                 type: string
  *                 format: date
  *               fechaVencimiento:
+ *                 type: string
+ *                 format: date
+ *               fechaInicio:
  *                 type: string
  *                 format: date
  *               comisionEstudio:

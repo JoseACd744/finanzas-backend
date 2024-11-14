@@ -1,18 +1,10 @@
-// src/models/letraModel.js
 const { DataTypes } = require('sequelize');
 const sequelize = require('../config/database');
-const User = require('./userModel');
 
 const Letra = sequelize.define('Letra', {
-    id: {
-        type: DataTypes.INTEGER,
-        autoIncrement: true,
-        primaryKey: true
-    },
     numero: {
         type: DataTypes.STRING,
-        allowNull: false,
-        unique: true
+        allowNull: false
     },
     nombreCliente: {
         type: DataTypes.STRING,
@@ -40,8 +32,7 @@ const Letra = sequelize.define('Letra', {
     },
     fechaInicio: {
         type: DataTypes.DATE,
-        allowNull: false,
-        defaultValue: DataTypes.NOW
+        allowNull: false
     },
     valorNominal: {
         type: DataTypes.FLOAT,
@@ -83,25 +74,13 @@ const Letra = sequelize.define('Letra', {
         type: DataTypes.FLOAT,
         allowNull: false
     },
-    interesCompensatorio: {
-        type: DataTypes.FLOAT,
-        allowNull: true
-    },
-    interesMoratorio: {
-        type: DataTypes.FLOAT,
-        allowNull: true
-    },
-    TCEAm: {
-        type: DataTypes.FLOAT,
-        allowNull: true
-    },
     userId: {
         type: DataTypes.INTEGER,
-        allowNull: false,
-        references: {
-            model: 'Users',
-            key: 'id'
-        }
+        allowNull: false
+    },
+    nombreEntidad: {
+        type: DataTypes.STRING,
+        allowNull: false
     }
 });
 

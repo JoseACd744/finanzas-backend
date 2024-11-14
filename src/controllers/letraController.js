@@ -3,10 +3,9 @@ const Letra = require('../models/letraModel');
 const moment = require('moment');
 
 const createLetra = async (req, res) => {
-    const { numero, nombreCliente, monto, tasaInteresEfectiva, seguroDesgravame, fechaDescuento, fechaVencimiento, comisionEstudio = 0, comisionActivacion = 0, comisionOtro = 0, retencion = 0, gastosAdministrativos = 0, portes = 0, userId } = req.body;
+    const { numero, nombreCliente, nombreEntidad, monto, tasaInteresEfectiva, seguroDesgravame, fechaDescuento, fechaVencimiento, comisionEstudio = 0, comisionActivacion = 0, comisionOtro = 0, retencion = 0, gastosAdministrativos = 0, portes = 0, userId, fechaInicio } = req.body;
 
     try {
-        const fechaInicio = new Date();
         let diasDescontados = moment(fechaDescuento).diff(moment(fechaInicio), 'days');
         if (diasDescontados === 0) {
             diasDescontados = moment(fechaVencimiento).diff(moment(fechaInicio), 'days');
@@ -29,6 +28,7 @@ const createLetra = async (req, res) => {
         const newLetra = await Letra.create({
             numero,
             nombreCliente,
+            nombreEntidad,
             monto,
             tasaInteresEfectiva,
             seguroDesgravame,
@@ -85,8 +85,7 @@ const updateLetra = async (req, res) => {
             return res.status(404).json({ message: 'Letra no encontrada' });
         }
 
-        const { numero, nombreCliente, monto, tasaInteresEfectiva, seguroDesgravame, fechaDescuento, fechaVencimiento, comisionEstudio = 0, comisionActivacion = 0, comisionOtro = 0, retencion = 0, gastosAdministrativos = 0, portes = 0, userId } = req.body;
-        const fechaInicio = letra.fechaInicio;
+        const { numero, nombreCliente, monto, tasaInteresEfectiva, seguroDesgravame, fechaDescuento, fechaVencimiento, comisionEstudio = 0, comisionActivacion = 0, comisionOtro = 0, retencion = 0, gastosAdministrativos = 0, portes = 0, userId, fechaInicio, nombreEntidad } = req.body;
         let diasDescontados = moment(fechaDescuento).diff(moment(fechaInicio), 'days');
         if (diasDescontados === 0) {
             diasDescontados = moment(fechaVencimiento).diff(moment(fechaInicio), 'days');
@@ -113,6 +112,7 @@ const updateLetra = async (req, res) => {
         letra.seguroDesgravame = seguroDesgravame;
         letra.fechaDescuento = fechaDescuento;
         letra.fechaVencimiento = fechaVencimiento;
+        letra.fechaInicio = fechaInicio;
         letra.valorNominal = valorNominal;
         letra.diasDescontados = diasDescontados;
         letra.TEA = TEA;
@@ -124,6 +124,7 @@ const updateLetra = async (req, res) => {
         letra.valorEntregado = valorEntregado;
         letra.TCEA = TCEA;
         letra.userId = userId;
+        letra.nombreEntidad = nombreEntidad;
 
         await letra.save();
         res.json(letra);
