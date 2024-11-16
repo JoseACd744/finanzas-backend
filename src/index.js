@@ -1,8 +1,8 @@
-// src/index.js
 require('dotenv').config();
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
+const path = require('path');
 const sequelize = require('./config/database');
 const userRoutes = require('./routes/userRoutes');
 const letraRoutes = require('./routes/letraRoutes');
@@ -28,6 +28,14 @@ app.use('/api/letras', letraRoutes);
 app.use('/api/auth', authRoutes); // Usa las rutas de autenticación
 app.use('/api/download-log', downloadLogRoutes);
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(specs));
+
+// Sirve los archivos estáticos de la aplicación Angular
+app.use(express.static(path.join(__dirname, 'dist/finanzas-app/browser')));
+
+// Redirige todas las rutas no encontradas a index.html
+app.get('/*', (req, res) => {
+    res.sendFile(path.join(__dirname, 'dist/finanzas-app/browser/index.html'));
+});
 
 sequelize.sync({ force: false }).then(() => {
     app.listen(PORT, () => {
