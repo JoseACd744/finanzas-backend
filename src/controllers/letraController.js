@@ -7,8 +7,8 @@ const createLetra = async (req, res) => {
 
     try {
         // Validación de fechas
-        if (moment(fechaInicio).isSameOrAfter(fechaDescuento) || moment(fechaDescuento).isSameOrAfter(fechaVencimiento)) {
-            return res.status(400).json({ message: 'Las fechas deben cumplir con la condición: fechaInicio < fechaDescuento < fechaVencimiento' });
+        if (moment(fechaDescuento).isSameOrAfter(fechaVencimiento)) {
+            return res.status(400).json({ message: 'Las fechas deben cumplir con la condición: fechaDescuento < fechaVencimiento' });
         }
 
         let diasDescontados = moment(fechaDescuento).diff(moment(fechaInicio), 'days');
@@ -62,7 +62,6 @@ const createLetra = async (req, res) => {
         res.status(400).json({ message: error.message });
     }
 };
-
 const getLetras = async (req, res) => {
     const { userId } = req.query; // Obtener el userId de los parámetros de consulta
 
