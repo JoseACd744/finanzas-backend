@@ -6,18 +6,21 @@ const createLetra = async (req, res) => {
     const { numero, nombreCliente, nombreEntidad, monto, tasaInteresEfectiva, seguroDesgravame, fechaDescuento, fechaVencimiento, comisionEstudio = 0, comisionActivacion = 0, comisionOtro = 0, retencion = 0, gastosAdministrativos = 0, portes = 0, userId, fechaInicio } = req.body;
 
     try {
-        let diasDescontados = moment(fechaDescuento).diff(moment(fechaInicio), 'days');
-        if (diasDescontados === 0) {
-            diasDescontados = moment(fechaVencimiento).diff(moment(fechaInicio), 'days');
+        // Validación de fechas
+        if (moment(fechaInicio).isSameOrAfter(fechaDescuento) || moment(fechaDescuento).isSameOrAfter(fechaVencimiento)) {
+            return res.status(400).json({ message: 'Las fechas deben cumplir con la condición: fechaInicio < fechaDescuento < fechaVencimiento' });
         }
+
+        let diasDescontados = moment(fechaDescuento).diff(moment(fechaInicio), 'days');
         const TEA = tasaInteresEfectiva;
-        const TEP = Math.pow(1 + TEA, diasDescontados / 360) - 1;
         const valorNominal = monto;
         
         let tasaDescontada = 0;
         let descuento = 0;
-        
+        let TEP = 0;
+
         if (diasDescontados !== 0) {
+            TEP = Math.pow(1 + TEA, diasDescontados / 360) - 1;
             tasaDescontada = TEP / (1 + TEP / 100);
             descuento = valorNominal * tasaDescontada / 100;
         }
