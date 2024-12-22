@@ -11,7 +11,7 @@ const options = {
         },
         servers: [
             {
-                url: 'https://finanzastf-h0hgfnerg9eca4ba.westus3-01.azurewebsites.net/',
+                url: 'https://prod-fullstack-hfckgufbhdccgecd.eastus2-01.azurewebsites.net',
                 description: 'Servidor de producción'
             }
         ],
