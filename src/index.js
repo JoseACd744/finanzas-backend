@@ -15,7 +15,7 @@ const PORT = process.env.PORT || 8080;
 
 // Configuración de CORS para aceptar cualquier origen y localhost:4200
 const corsOptions = {
-    origin: ['*', 'http://localhost:4200', 'https://victorious-rock-02fabd61e.5.azurestaticapps.net'],
+    origin: ['*', 'http://localhost:4200', 'https://prod-fullstack-hfckgufbhdccgecd.eastus2-01.azurewebsites.net'],
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
     credentials: true,
     optionsSuccessStatus: 204
